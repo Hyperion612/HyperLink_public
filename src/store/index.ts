@@ -175,8 +175,14 @@ export function getLinkViews(linkId: string): PageView[] {
 
 // --- Seed Data ---
 export function seedDemoData(): void {
-  const existing = getUsers();
-  if (existing.find(u => u.email === 'demo@hyperlink.app')) return;
+  let existing: User[] = [];
+  try {
+    existing = getUsers();
+    if (existing.find(u => u.email === 'demo@hyperlink.app')) return;
+  } catch (e) {
+    console.error('Error checking existing users:', e);
+    return;
+  }
 
   const demoUser: User = {
     id: 'demo-user-1',

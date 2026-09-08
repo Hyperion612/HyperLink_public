@@ -20,15 +20,33 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(store.getCurrentUser());
-  const [links, setLinks] = useState<SmartLink[]>([]);
-
-  useEffect(() => {
-    store.seedDemoData();
-    if (user) {
-      setLinks(store.getUserLinks(user.id));
+  // Инициализируем демо-данные один раз при загрузке
+  React.useMemo(() => {
+    try {
+      store.seedDemoData();
+    } catch (e) {
+      console.error('Error seeding demo data:', e);
     }
   }, []);
+  
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      return store.getCurrentUser();
+    } catch (e) {
+      console.error('Error getting current user:', e);
+      return null;
+    }
+  });
+  
+  const [links, setLinks] = useState<SmartLink[]>(() => {
+    try {
+      const currentUser = store.getCurrentUser();
+      return currentUser ? store.getUserLinks(currentUser.id) : [];
+    } catch (e) {
+      console.error('Error getting user links:', e);
+      return [];
+    }
+  });
 
   const refreshUser = () => setUser(store.getCurrentUser());
   const refreshLinks = () => { if (user) setLinks(store.getUserLinks(user.id)); };

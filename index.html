@@ -7,10 +7,41 @@
     <meta name="description" content="HyperLink — сервис умных ссылок для музыкантов. Одна ссылка на все стриминговые площадки." />
     <style>
       html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0a0a0f; }
+      #root { width: 100%; height: 100%; }
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="display: flex; align-items: center; justify-content: center; height: 100vh; color: white; font-family: sans-serif;">
+        <div style="text-align: center;">
+          <div style="font-size: 24px; margin-bottom: 10px;">HyperLink</div>
+          <div style="color: #666; font-size: 14px;">Загрузка...</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      console.log('✅ HTML loaded');
+      console.log('✅ Root element:', document.getElementById('root'));
+      
+      window.addEventListener('error', function(event) {
+        console.error('❌ Global error:', event.message, event.filename, event.lineno, event.colno, event.error);
+        var root = document.getElementById('root');
+        if (root) {
+          root.innerHTML = 
+            '<div style="padding: 20px; color: white; background: #0a0a0f; min-height: 100vh; font-family: monospace;">' +
+            '<h1 style="color: #ff4444;">❌ Ошибка загрузки</h1>' +
+            '<p style="color: #999; margin-top: 10px;">' + event.message + '</p>' +
+            '<p style="color: #666; font-size: 12px; margin-top: 5px;">File: ' + event.filename + ':' + event.lineno + '</p>' +
+            '<pre style="background: #1a1a1a; padding: 10px; border-radius: 8px; overflow: auto; margin-top: 20px; font-size: 12px; color: #ccc;">' + (event.error ? event.error.stack : 'No stack trace') + '</pre>' +
+            '<button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #3B82F6; color: white; border: none; border-radius: 8px; cursor: pointer;">Перезагрузить</button>' +
+            '</div>';
+        }
+      });
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        console.error('❌ Unhandled promise rejection:', event.reason);
+      });
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
