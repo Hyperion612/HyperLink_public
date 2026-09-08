@@ -48,12 +48,12 @@ export default function DashboardPage() {
       <main className="flex-1 ml-64 p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
               <h1 className="text-3xl font-bold">Дашборд</h1>
               <p className="text-gray-400 mt-1">Добро пожаловать, {user.name}!</p>
             </div>
-            <button onClick={() => navigate('/dashboard/editor/new')} className="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-medium transition-all hover:shadow-lg hover:shadow-blue-500/25">
+            <button onClick={() => navigate('/dashboard/editor/new')} className="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-medium transition-all hover:shadow-lg hover:shadow-blue-500/25 whitespace-nowrap">
               <Plus className="w-5 h-5" /> Создать ссылку
             </button>
           </div>

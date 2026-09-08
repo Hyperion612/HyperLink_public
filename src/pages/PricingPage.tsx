@@ -26,8 +26,8 @@ export default function PricingPage() {
 
       <div className="relative max-w-5xl mx-auto px-6 py-16">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-12">
-          <button onClick={() => navigate(user ? '/dashboard' : '/')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+        <div className="flex items-start sm:items-center gap-4 mb-12">
+          <button onClick={() => navigate(user ? '/dashboard' : '/')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors flex-shrink-0 mt-1">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>

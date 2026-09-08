@@ -35,8 +35,8 @@ export default function LoginPage() {
       </div>
       <div className="relative w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-6 cursor-pointer" onClick={() => navigate('/')}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+          <div className="inline-flex items-center justify-center gap-2 mb-6 cursor-pointer" onClick={() => navigate('/')}>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center flex-shrink-0">
               <Link2 className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold">HyperLink</span>
@@ -76,8 +76,8 @@ export default function LoginPage() {
               />
             </div>
             {error && <p className="text-red-400 text-sm">{error}</p>}
-            <button type="submit" className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2">
-              {isRegister ? 'Создать аккаунт' : 'Войти'} <ArrowRight className="w-4 h-4" />
+            <button type="submit" className="w-full inline-flex items-center justify-center gap-2 py-3.5 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-500/25">
+              {isRegister ? 'Создать аккаунт' : 'Войти'} <ArrowRight className="w-4 h-4 flex-shrink-0" />
             </button>
           </form>
           <div className="mt-6 text-center">

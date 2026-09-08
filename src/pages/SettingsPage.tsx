@@ -37,15 +37,15 @@ export default function SettingsPage() {
           <div className="glass rounded-2xl p-6 space-y-6">
             {/* Avatar */}
             <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-3xl font-bold">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-3xl font-bold flex-shrink-0">
                 {user.name.charAt(0).toUpperCase()}
               </div>
-              <div>
-                <h2 className="text-lg font-semibold">{user.name}</h2>
-                <p className="text-sm text-gray-400">{user.email}</p>
+              <div className="min-w-0">
+                <h2 className="text-lg font-semibold truncate">{user.name}</h2>
+                <p className="text-sm text-gray-400 truncate">{user.email}</p>
                 {user.plan === 'pro' && (
                   <div className="flex items-center gap-1 mt-1">
-                    <Crown className="w-3 h-3 text-blue-400" />
+                    <Crown className="w-3 h-3 text-blue-400 flex-shrink-0" />
                     <span className="text-xs text-blue-400 font-medium">Pro план</span>
                   </div>
                 )}
@@ -78,8 +78,8 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <button onClick={handleSave} className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-medium transition-all">
-              {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+            <button onClick={handleSave} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-medium transition-all whitespace-nowrap">
+              {saved ? <Check className="w-4 h-4 flex-shrink-0" /> : <Save className="w-4 h-4 flex-shrink-0" />}
               {saved ? 'Сохранено!' : 'Сохранить изменения'}
             </button>
           </div>

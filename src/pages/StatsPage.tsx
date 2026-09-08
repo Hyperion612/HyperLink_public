@@ -66,13 +66,13 @@ export default function StatsPage() {
       <main className="flex-1 ml-64 p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8">
-            <button onClick={() => navigate('/dashboard')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+          <div className="flex items-start sm:items-center gap-4 mb-8">
+            <button onClick={() => navigate('/dashboard')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors flex-shrink-0 mt-1">
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <div>
-              <h1 className="text-2xl font-bold">Статистика: {link.title}</h1>
-              <p className="text-sm text-gray-400 mt-0.5">hyperlink.app/r/{link.slug}</p>
+            <div className="min-w-0">
+              <h1 className="text-2xl font-bold truncate">Статистика: {link.title}</h1>
+              <p className="text-sm text-gray-400 mt-0.5 truncate">hyperlink.app/r/{link.slug}</p>
             </div>
           </div>
 

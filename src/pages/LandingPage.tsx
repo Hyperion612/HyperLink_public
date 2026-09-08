@@ -15,44 +15,43 @@ export default function LandingPage() {
         </div>
 
         {/* Nav */}
-        <nav className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <nav className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center flex-shrink-0">
               <Link2 className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold">HyperLink</span>
           </div>
-          <div className="flex items-center gap-4">
-            <button onClick={() => navigate('/pricing')} className="text-sm text-gray-400 hover:text-white transition-colors">Тарифы</button>
-            <button onClick={() => navigate('/login')} className="text-sm text-gray-300 hover:text-white transition-colors">Войти</button>
-            <button onClick={() => navigate('/login')} className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-full text-sm font-medium transition-all hover:shadow-lg hover:shadow-blue-500/25">
+          <div className="flex items-center gap-3 flex-wrap justify-center">
+            <button onClick={() => navigate('/pricing')} className="text-sm text-gray-400 hover:text-white transition-colors px-3 py-2">Тарифы</button>
+            <button onClick={() => navigate('/login')} className="text-sm text-gray-300 hover:text-white transition-colors px-3 py-2">Войти</button>
+            <button onClick={() => navigate('/login')} className="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-full text-sm font-medium transition-all hover:shadow-lg hover:shadow-blue-500/25 whitespace-nowrap">
               Начать бесплатно
             </button>
           </div>
         </nav>
 
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-32 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in-up">
-            <Sparkles className="w-4 h-4 text-blue-400" />
-            <span className="text-sm text-gray-300">Умные ссылки для музыкантов нового поколения</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            Одна ссылка.<br />
-            <span className="gradient-text">Все площадки мира.</span>
-          </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            HyperLink анализирует устройство и геолокацию слушателя, чтобы показать ему именно те стриминги, которые он использует. Больше конверсий — больше прослушиваний.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <button onClick={() => navigate('/login')} className="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full text-lg font-semibold transition-all hover:shadow-xl hover:shadow-blue-500/30 flex items-center gap-2">
-              Создать ссылку бесплатно <ArrowRight className="w-5 h-5" />
-            </button>
-            <button onClick={() => navigate('/r/rassvet-single')} className="px-8 py-4 glass rounded-full text-lg font-medium hover:bg-white/5 transition-all">
-              Смотреть демо
-            </button>
-          </div>
-
+      {/* Hero Content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-32 text-center">
+        <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in-up">
+          <Sparkles className="w-4 h-4 text-blue-400 flex-shrink-0" />
+          <span className="text-sm text-gray-300">Умные ссылки для музыкантов нового поколения</span>
+        </div>
+        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          Одна ссылка.<br />
+          <span className="gradient-text">Все площадки мира.</span>
+        </h1>
+        <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          HyperLink анализирует устройство и геолокацию слушателя, чтобы показать ему именно те стриминги, которые он использует. Больше конверсий — больше прослушиваний.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <button onClick={() => navigate('/login')} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full text-lg font-semibold transition-all hover:shadow-xl hover:shadow-blue-500/30 whitespace-nowrap">
+            Создать ссылку бесплатно <ArrowRight className="w-5 h-5 flex-shrink-0" />
+          </button>
+          <button onClick={() => navigate('/r/rassvet-single')} className="inline-flex items-center justify-center px-8 py-4 glass rounded-full text-lg font-medium hover:bg-white/5 transition-all whitespace-nowrap">
+            Смотреть демо
+          </button>
+        </div>
           {/* Preview mockup */}
           <div className="mt-20 relative animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 rounded-3xl blur-2xl"></div>
@@ -131,10 +130,10 @@ export default function LandingPage() {
       <footer className="border-t border-white/5 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Link2 className="w-5 h-5 text-blue-400" />
+            <Link2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
             <span className="font-semibold">HyperLink</span>
           </div>
-          <p className="text-sm text-gray-500">© 2026 HyperLink. Все права защищены.</p>
+          <p className="text-sm text-gray-500 text-center md:text-right">© 2026 HyperLink. Все права защищены.</p>
         </div>
       </footer>
     </div>

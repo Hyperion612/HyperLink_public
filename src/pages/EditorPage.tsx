@@ -72,9 +72,9 @@ export default function EditorPage() {
       <main className="flex-1 ml-64 p-8">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-4">
-              <button onClick={() => navigate('/dashboard')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+              <button onClick={() => navigate('/dashboard')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors flex-shrink-0">
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
@@ -84,14 +84,14 @@ export default function EditorPage() {
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               {!isNew && existingLink && (
-                <button onClick={() => navigate('/r/' + existingLink.slug)} className="flex items-center gap-2 px-4 py-2.5 glass rounded-xl text-sm hover:bg-white/5 transition-colors">
-                  <Eye className="w-4 h-4" /> Предпросмотр
+                <button onClick={() => navigate('/r/' + existingLink.slug)} className="inline-flex items-center gap-2 px-4 py-2.5 glass rounded-xl text-sm hover:bg-white/5 transition-colors whitespace-nowrap">
+                  <Eye className="w-4 h-4 flex-shrink-0" /> Предпросмотр
                 </button>
               )}
-              <button onClick={handleSave} className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-xl text-sm font-medium transition-all">
-                <Save className="w-4 h-4" /> {saved ? 'Сохранено!' : 'Сохранить'}
+              <button onClick={handleSave} className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-xl text-sm font-medium transition-all whitespace-nowrap">
+                <Save className="w-4 h-4 flex-shrink-0" /> {saved ? 'Сохранено!' : 'Сохранить'}
               </button>
             </div>
           </div>

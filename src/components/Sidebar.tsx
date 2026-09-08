@@ -52,19 +52,19 @@ export default function Sidebar({ active }: { active: string }) {
       <div className="p-4 border-t border-white/5">
         {user?.plan === 'pro' && (
           <div className="flex items-center gap-2 px-4 py-2 mb-3 rounded-lg bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20">
-            <Crown className="w-4 h-4 text-blue-400" />
+            <Crown className="w-4 h-4 text-blue-400 flex-shrink-0" />
             <span className="text-xs font-medium text-blue-300">Pro план</span>
           </div>
         )}
         <div className="flex items-center gap-3 px-4 py-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-sm font-bold">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-sm font-bold flex-shrink-0">
             {user?.name?.charAt(0).toUpperCase() || '?'}
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 overflow-hidden">
             <p className="text-sm font-medium truncate">{user?.name}</p>
             <p className="text-xs text-gray-500 truncate">{user?.email}</p>
           </div>
-          <button onClick={handleLogout} className="p-1.5 rounded-lg hover:bg-white/5 text-gray-400 hover:text-red-400 transition-colors">
+          <button onClick={handleLogout} className="p-1.5 rounded-lg hover:bg-white/5 text-gray-400 hover:text-red-400 transition-colors flex-shrink-0">
             <LogOut className="w-4 h-4" />
           </button>
         </div>
