@@ -16,7 +16,10 @@ export default function StatsPage() {
   const link = links.find(l => l.id === id);
 
   useEffect(() => {
-    if (!user) { navigate('/login'); return; }
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     if (id) {
       setClicks(getLinkClicks(id));
       setViews(getLinkViews(id));
@@ -31,7 +34,11 @@ export default function StatsPage() {
     const dayStr = date.toISOString().split('T')[0];
     const dayClicks = clicks.filter(c => c.createdAt.startsWith(dayStr)).length;
     const dayViews = views.filter(v => v.createdAt.startsWith(dayStr)).length;
-    return { date: date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }), clicks: dayClicks, views: dayViews };
+    return { 
+      date: date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }), 
+      clicks: dayClicks, 
+      views: dayViews 
+    };
   });
   const maxVal = Math.max(...chartData.map(d => Math.max(d.clicks, d.views)), 1);
 
@@ -61,39 +68,52 @@ export default function StatsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex">
-      <Sidebar active="dashboard" />
-      <main className="flex-1 ml-64 p-8">
+    <div className="min-h-screen bg-black">
+      <Sidebar />
+      <main className="ml-64 p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="flex items-start sm:items-center gap-4 mb-8">
-            <button onClick={() => navigate('/dashboard')} className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors flex-shrink-0 mt-1">
+          <div className="flex items-center gap-4 mb-8">
+            <button 
+              onClick={() => navigate('/dashboard')} 
+              className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            >
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <div className="min-w-0">
-              <h1 className="text-2xl font-bold truncate">Статистика: {link.title}</h1>
-              <p className="text-sm text-gray-400 mt-0.5 truncate">hyperlink.app/r/{link.slug}</p>
+            <div>
+              <h1 className="text-2xl font-bold">Статистика: {link.title}</h1>
+              <p className="text-sm text-zinc-400 mt-0.5">hyperlink.app/r/{link.slug}</p>
             </div>
           </div>
 
           {/* Overview */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              { label: 'Просмотров', value: totalViews, icon: BarChart3, color: 'blue' },
-              { label: 'Кликов', value: clicks.length, icon: MousePointer, color: 'green' },
-              { label: 'Конверсия', value: totalViews > 0 ? ((clicks.length / totalViews) * 100).toFixed(1) + '%' : '0%', icon: TrendingUp, color: 'purple' },
-              { label: 'Площадок', value: serviceData.length, icon: PieChart, color: 'yellow' },
-            ].map((stat, i) => (
-              <div key={i} className="glass rounded-2xl p-5">
-                <stat.icon className={`w-5 h-5 mb-2 ${stat.color === 'blue' ? 'text-blue-400' : stat.color === 'green' ? 'text-green-400' : stat.color === 'purple' ? 'text-purple-400' : 'text-yellow-400'}`} />
-                <p className="text-2xl font-bold">{stat.value}</p>
-                <p className="text-sm text-gray-400">{stat.label}</p>
-              </div>
-            ))}
+            <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
+              <BarChart3 className="w-5 h-5 text-blue-400 mb-2" />
+              <p className="text-2xl font-bold">{totalViews}</p>
+              <p className="text-sm text-zinc-400">Просмотров</p>
+            </div>
+            <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
+              <MousePointer className="w-5 h-5 text-green-400 mb-2" />
+              <p className="text-2xl font-bold">{clicks.length}</p>
+              <p className="text-sm text-zinc-400">Кликов</p>
+            </div>
+            <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
+              <TrendingUp className="w-5 h-5 text-purple-400 mb-2" />
+              <p className="text-2xl font-bold">
+                {totalViews > 0 ? ((clicks.length / totalViews) * 100).toFixed(1) + '%' : '0%'}
+              </p>
+              <p className="text-sm text-zinc-400">Конверсия</p>
+            </div>
+            <div className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
+              <PieChart className="w-5 h-5 text-yellow-400 mb-2" />
+              <p className="text-2xl font-bold">{serviceData.length}</p>
+              <p className="text-sm text-zinc-400">Площадок</p>
+            </div>
           </div>
 
           {/* Chart */}
-          <div className="glass rounded-2xl p-6 mb-6">
+          <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mb-6">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-blue-400" /> Активность за 14 дней
             </h2>
@@ -101,21 +121,33 @@ export default function StatsPage() {
               {chartData.map((d, i) => (
                 <div key={i} className="flex-1 flex items-end gap-0.5 group">
                   <div className="flex-1 flex flex-col justify-end h-full">
-                    <div className="w-full bg-blue-600/60 rounded-t-sm transition-all group-hover:bg-blue-500" style={{ height: `${(d.views / maxVal) * 100}%`, minHeight: d.views > 0 ? '2px' : '0' }}></div>
-                    <div className="w-full bg-green-600/60 rounded-t-sm transition-all group-hover:bg-green-500" style={{ height: `${(d.clicks / maxVal) * 100}%`, minHeight: d.clicks > 0 ? '2px' : '0' }}></div>
+                    <div 
+                      className="w-full bg-blue-600/60 rounded-t-sm transition-all group-hover:bg-blue-500" 
+                      style={{ height: `${(d.views / maxVal) * 100}%`, minHeight: d.views > 0 ? '2px' : '0' }}
+                    />
+                    <div 
+                      className="w-full bg-green-600/60 rounded-t-sm transition-all group-hover:bg-green-500" 
+                      style={{ height: `${(d.clicks / maxVal) * 100}%`, minHeight: d.clicks > 0 ? '2px' : '0' }}
+                    />
                   </div>
                 </div>
               ))}
             </div>
             <div className="flex items-center gap-4 mt-3">
-              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-blue-600/60"></div><span className="text-xs text-gray-400">Просмотры</span></div>
-              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-green-600/60"></div><span className="text-xs text-gray-400">Клики</span></div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-sm bg-blue-600/60" />
+                <span className="text-xs text-zinc-400">Просмотры</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-sm bg-green-600/60" />
+                <span className="text-xs text-zinc-400">Клики</span>
+              </div>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Countries */}
-            <div className="glass rounded-2xl p-6">
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Globe className="w-5 h-5 text-blue-400" /> Топ стран
               </h2>
@@ -123,18 +155,26 @@ export default function StatsPage() {
                 {countryData.map(([country, count]) => (
                   <div key={country} className="flex items-center gap-3">
                     <span className="text-sm font-medium w-8">{country}</span>
-                    <div className="flex-1 h-6 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full rounded-full transition-all" style={{ width: `${(count / totalViews) * 100}%`, background: countryColors[country] || '#3B82F6' }}></div>
+                    <div className="flex-1 h-6 bg-zinc-800 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full rounded-full transition-all" 
+                        style={{ 
+                          width: `${(count / totalViews) * 100}%`, 
+                          background: countryColors[country] || '#3B82F6' 
+                        }}
+                      />
                     </div>
-                    <span className="text-sm text-gray-400 w-12 text-right">{count}</span>
-                    <span className="text-xs text-gray-500 w-10 text-right">{((count / totalViews) * 100).toFixed(0)}%</span>
+                    <span className="text-sm text-zinc-400 w-12 text-right">{count}</span>
+                    <span className="text-xs text-zinc-500 w-10 text-right">
+                      {((count / totalViews) * 100).toFixed(0)}%
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* UTM Sources */}
-            <div className="glass rounded-2xl p-6">
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-green-400" /> Источники
               </h2>
@@ -142,17 +182,20 @@ export default function StatsPage() {
                 {utmData.map(([source, count]) => (
                   <div key={source} className="flex items-center gap-3">
                     <span className="text-sm font-medium w-20 truncate">{source}</span>
-                    <div className="flex-1 h-6 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-green-600/60 rounded-full transition-all" style={{ width: `${(count / totalViews) * 100}%` }}></div>
+                    <div className="flex-1 h-6 bg-zinc-800 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-green-600/60 rounded-full transition-all" 
+                        style={{ width: `${(count / totalViews) * 100}%` }}
+                      />
                     </div>
-                    <span className="text-sm text-gray-400 w-12 text-right">{count}</span>
+                    <span className="text-sm text-zinc-400 w-12 text-right">{count}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Service Conversion */}
-            <div className="glass rounded-2xl p-6">
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <MousePointer className="w-5 h-5 text-purple-400" /> Конверсия по платформам
               </h2>
@@ -160,18 +203,23 @@ export default function StatsPage() {
                 {serviceData.map(([service, count]) => (
                   <div key={service} className="flex items-center gap-3">
                     <span className="text-sm font-medium w-32 truncate">{service}</span>
-                    <div className="flex-1 h-6 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-purple-600/60 rounded-full transition-all" style={{ width: `${(count / clicks.length) * 100}%` }}></div>
+                    <div className="flex-1 h-6 bg-zinc-800 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-purple-600/60 rounded-full transition-all" 
+                        style={{ width: `${(count / clicks.length) * 100}%` }}
+                      />
                     </div>
-                    <span className="text-sm text-gray-400 w-12 text-right">{count}</span>
-                    <span className="text-xs text-gray-500 w-10 text-right">{((count / clicks.length) * 100).toFixed(0)}%</span>
+                    <span className="text-sm text-zinc-400 w-12 text-right">{count}</span>
+                    <span className="text-xs text-zinc-500 w-10 text-right">
+                      {((count / clicks.length) * 100).toFixed(0)}%
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Devices */}
-            <div className="glass rounded-2xl p-6">
+            <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <PieChart className="w-5 h-5 text-yellow-400" /> Устройства
               </h2>
@@ -179,11 +227,16 @@ export default function StatsPage() {
                 {deviceData.map(([dev, count]) => (
                   <div key={dev} className="flex items-center gap-3">
                     <span className="text-sm font-medium w-20 truncate">{dev}</span>
-                    <div className="flex-1 h-6 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-yellow-600/60 rounded-full transition-all" style={{ width: `${(count / totalViews) * 100}%` }}></div>
+                    <div className="flex-1 h-6 bg-zinc-800 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-yellow-600/60 rounded-full transition-all" 
+                        style={{ width: `${(count / totalViews) * 100}%` }}
+                      />
                     </div>
-                    <span className="text-sm text-gray-400 w-12 text-right">{count}</span>
-                    <span className="text-xs text-gray-500 w-10 text-right">{((count / totalViews) * 100).toFixed(0)}%</span>
+                    <span className="text-sm text-zinc-400 w-12 text-right">{count}</span>
+                    <span className="text-xs text-zinc-500 w-10 text-right">
+                      {((count / totalViews) * 100).toFixed(0)}%
+                    </span>
                   </div>
                 ))}
               </div>
