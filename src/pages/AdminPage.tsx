@@ -24,11 +24,11 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-700/50 shadow-2xl">
+        <div className="bg-gray-900/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-800 shadow-2xl">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
               <Lock className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-2xl font-bold text-white">Панель администратора</h1>
@@ -40,12 +40,12 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
               value={password}
               onChange={e => { setPassword(e.target.value); setError(''); }}
               placeholder="Пароль"
-              className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
             />
-            {error && <p className="text-red-400 text-sm">{error}</p>}
+            {error && <p className="text-blue-300 text-sm">{error}</p>}
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium hover:opacity-90 transition-opacity"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium hover:from-blue-500 hover:to-blue-400 transition-all"
             >
               Войти
             </button>
@@ -91,23 +91,23 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-xl border-b border-gray-700/50">
+      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-gray-800">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate('/')} className="p-2 rounded-lg hover:bg-gray-700/50 transition-colors">
+            <button onClick={() => navigate('/')} className="p-2 rounded-lg hover:bg-gray-800 transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-200">
               HyperLink Admin
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => navigate('/')} className="px-3 py-2 text-sm rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
+            <button onClick={() => navigate('/')} className="px-3 py-2 text-sm rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors">
               Просмотр сайта
             </button>
-            <button onClick={handleLogout} className="p-2 rounded-lg hover:bg-red-500/20 text-red-400 transition-colors">
+            <button onClick={handleLogout} className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 transition-colors">
               <LogOut className="w-5 h-5" />
             </button>
           </div>
@@ -116,15 +116,15 @@ export default function AdminPage() {
 
       {/* Tabs */}
       <div className="max-w-4xl mx-auto px-4 pt-6">
-        <div className="flex gap-1 overflow-x-auto pb-2 mb-6 bg-gray-800/50 rounded-xl p-1">
+        <div className="flex gap-1 overflow-x-auto pb-2 mb-6 bg-gray-900/50 rounded-xl p-1">
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                 activeTab === tab.id
-                  ? 'bg-purple-600 text-white shadow-lg'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-800'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -177,9 +177,9 @@ function ProfileSection({ data, updateArtistInfo }: { data: any; updateArtistInf
   };
 
   return (
-    <div className="bg-gray-800/60 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+    <div className="bg-gray-900/60 backdrop-blur rounded-2xl p-6 border border-gray-800">
       <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-        <User className="w-5 h-5 text-purple-400" />
+        <User className="w-5 h-5 text-blue-400" />
         Информация о профиле
       </h2>
       <div className="space-y-4">
@@ -189,7 +189,7 @@ function ProfileSection({ data, updateArtistInfo }: { data: any; updateArtistInf
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white focus:outline-none focus:border-purple-500 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <div>
@@ -198,12 +198,12 @@ function ProfileSection({ data, updateArtistInfo }: { data: any; updateArtistInf
             type="text"
             value={bio}
             onChange={e => setBio(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white focus:outline-none focus:border-purple-500 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <button
           onClick={handleSave}
-          className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium hover:from-blue-500 hover:to-blue-400 transition-all"
         >
           {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
           {saved ? 'Сохранено!' : 'Сохранить'}
@@ -250,16 +250,16 @@ function SocialSection({ links, addLink, updateLink, deleteLink }: {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gray-800/60 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+      <div className="bg-gray-900/60 backdrop-blur rounded-2xl p-6 border border-gray-800">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold flex items-center gap-2">
-            <Link2 className="w-5 h-5 text-purple-400" />
+            <Link2 className="w-5 h-5 text-blue-400" />
             Социальные сети
           </h2>
           {!showForm && (
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-sm font-medium transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-sm font-medium transition-colors"
             >
               <Plus className="w-4 h-4" /> Добавить
             </button>
@@ -267,26 +267,26 @@ function SocialSection({ links, addLink, updateLink, deleteLink }: {
         </div>
 
         {showForm && (
-          <div className="mb-6 p-4 rounded-xl bg-gray-700/50 border border-purple-500/30 space-y-3">
+          <div className="mb-6 p-4 rounded-xl bg-gray-800/50 border border-blue-500/30 space-y-3">
             <input
               type="text"
               placeholder="Название платформы (напр. Instagram)"
               value={form.platform}
               onChange={e => setForm({ ...form, platform: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500"
             />
             <input
               type="url"
               placeholder="URL ссылки"
               value={form.url}
               onChange={e => setForm({ ...form, url: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500"
             />
             <div className="flex gap-2">
-              <button onClick={handleSave} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-sm transition-colors">
+              <button onClick={handleSave} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-sm transition-colors">
                 <Check className="w-4 h-4" /> Сохранить
               </button>
-              <button onClick={handleCancel} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-sm transition-colors">
+              <button onClick={handleCancel} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm transition-colors">
                 <X className="w-4 h-4" /> Отмена
               </button>
             </div>
@@ -295,15 +295,15 @@ function SocialSection({ links, addLink, updateLink, deleteLink }: {
 
         <div className="space-y-2">
           {links.map(link => (
-            <div key={link.id} className="flex items-center gap-3 p-3 rounded-xl bg-gray-700/30 border border-gray-700/50">
+            <div key={link.id} className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/30 border border-gray-800">
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-white truncate">{link.platform}</p>
                 <p className="text-xs text-gray-400 truncate">{link.url}</p>
               </div>
-              <button onClick={() => handleEdit(link)} className="p-2 rounded-lg hover:bg-gray-600/50 text-gray-400 hover:text-white transition-colors">
+              <button onClick={() => handleEdit(link)} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
                 <Edit3 className="w-4 h-4" />
               </button>
-              <button onClick={() => deleteLink(link.id)} className="p-2 rounded-lg hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-colors">
+              <button onClick={() => deleteLink(link.id)} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
@@ -351,16 +351,16 @@ function MusicSection({ platforms, addPlatform, updatePlatform, deletePlatform }
   };
 
   return (
-    <div className="bg-gray-800/60 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+    <div className="bg-gray-900/60 backdrop-blur rounded-2xl p-6 border border-gray-800">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-bold flex items-center gap-2">
-          <Music className="w-5 h-5 text-green-400" />
+          <Music className="w-5 h-5 text-blue-400" />
           Музыкальные площадки
         </h2>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-sm font-medium transition-colors"
           >
             <Plus className="w-4 h-4" /> Добавить
           </button>
@@ -368,26 +368,26 @@ function MusicSection({ platforms, addPlatform, updatePlatform, deletePlatform }
       </div>
 
       {showForm && (
-        <div className="mb-6 p-4 rounded-xl bg-gray-700/50 border border-green-500/30 space-y-3">
+        <div className="mb-6 p-4 rounded-xl bg-gray-800/50 border border-blue-500/30 space-y-3">
           <input
             type="text"
             placeholder="Название площадки (напр. Spotify)"
             value={form.name}
             onChange={e => setForm({ ...form, name: e.target.value })}
-            className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-green-500"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500"
           />
           <input
             type="url"
             placeholder="URL ссылки"
             value={form.url}
             onChange={e => setForm({ ...form, url: e.target.value })}
-            className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-green-500"
+            className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500"
           />
           <div className="flex gap-2">
-            <button onClick={handleSave} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-sm transition-colors">
+            <button onClick={handleSave} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-sm transition-colors">
               <Check className="w-4 h-4" /> Сохранить
             </button>
-            <button onClick={handleCancel} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-sm transition-colors">
+            <button onClick={handleCancel} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm transition-colors">
               <X className="w-4 h-4" /> Отмена
             </button>
           </div>
@@ -396,15 +396,15 @@ function MusicSection({ platforms, addPlatform, updatePlatform, deletePlatform }
 
       <div className="space-y-2">
         {platforms.map(platform => (
-          <div key={platform.id} className="flex items-center gap-3 p-3 rounded-xl bg-gray-700/30 border border-gray-700/50">
+          <div key={platform.id} className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/30 border border-gray-800">
             <div className="flex-1 min-w-0">
               <p className="font-medium text-white truncate">{platform.name}</p>
               <p className="text-xs text-gray-400 truncate">{platform.url}</p>
             </div>
-            <button onClick={() => handleEdit(platform)} className="p-2 rounded-lg hover:bg-gray-600/50 text-gray-400 hover:text-white transition-colors">
+            <button onClick={() => handleEdit(platform)} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
               <Edit3 className="w-4 h-4" />
             </button>
-            <button onClick={() => deletePlatform(platform.id)} className="p-2 rounded-lg hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-colors">
+            <button onClick={() => deletePlatform(platform.id)} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
               <Trash2 className="w-4 h-4" />
             </button>
           </div>
@@ -442,9 +442,9 @@ function ReleaseSection({ release, setRelease }: {
   };
 
   return (
-    <div className="bg-gray-800/60 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+    <div className="bg-gray-900/60 backdrop-blur rounded-2xl p-6 border border-gray-800">
       <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-        <Calendar className="w-5 h-5 text-yellow-400" />
+        <Calendar className="w-5 h-5 text-blue-400" />
         Ближайший релиз
       </h2>
       <div className="space-y-4">
@@ -455,7 +455,7 @@ function ReleaseSection({ release, setRelease }: {
             value={form.title}
             onChange={e => setForm({ ...form, title: e.target.value })}
             placeholder="Напр. Новый Сингл «Рассвет»"
-            className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <div>
@@ -464,7 +464,7 @@ function ReleaseSection({ release, setRelease }: {
             type="date"
             value={form.date}
             onChange={e => setForm({ ...form, date: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white focus:outline-none focus:border-yellow-500 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <div>
@@ -474,7 +474,7 @@ function ReleaseSection({ release, setRelease }: {
             onChange={e => setForm({ ...form, description: e.target.value })}
             placeholder="Описание релиза..."
             rows={3}
-            className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors resize-none"
+            className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
           />
         </div>
         <div>
@@ -484,13 +484,13 @@ function ReleaseSection({ release, setRelease }: {
             value={form.preSaveUrl || ''}
             onChange={e => setForm({ ...form, preSaveUrl: e.target.value })}
             placeholder="https://..."
-            className="w-full px-4 py-3 rounded-xl bg-gray-700/50 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors"
+            className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <div className="flex gap-3">
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-600 to-orange-600 text-white font-medium hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium hover:from-blue-500 hover:to-blue-400 transition-all"
           >
             {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
             {saved ? 'Сохранено!' : 'Сохранить'}
@@ -498,7 +498,7 @@ function ReleaseSection({ release, setRelease }: {
           {release && (
             <button
               onClick={handleDelete}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 transition-colors"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-800/50 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white transition-colors"
             >
               <Trash2 className="w-4 h-4" /> Удалить
             </button>
@@ -546,7 +546,7 @@ function NewsSection({ news, addNews, updateNews, deleteNews }: {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gray-800/60 backdrop-blur rounded-2xl p-6 border border-gray-700/50">
+      <div className="bg-gray-900/60 backdrop-blur rounded-2xl p-6 border border-gray-800">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold flex items-center gap-2">
             <Newspaper className="w-5 h-5 text-blue-400" />
@@ -563,32 +563,32 @@ function NewsSection({ news, addNews, updateNews, deleteNews }: {
         </div>
 
         {showForm && (
-          <div className="mb-6 p-4 rounded-xl bg-gray-700/50 border border-blue-500/30 space-y-3">
+          <div className="mb-6 p-4 rounded-xl bg-gray-800/50 border border-blue-500/30 space-y-3">
             <input
               type="text"
               placeholder="Заголовок новости"
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500"
             />
             <textarea
               placeholder="Текст новости..."
               value={form.content}
               onChange={e => setForm({ ...form, content: e.target.value })}
               rows={4}
-              className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
             />
             <input
               type="date"
               value={form.date}
               onChange={e => setForm({ ...form, date: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg bg-gray-800/50 border border-gray-600 text-white text-sm focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 rounded-lg bg-gray-900/50 border border-gray-700 text-white text-sm focus:outline-none focus:border-blue-500"
             />
             <div className="flex gap-2">
-              <button onClick={handleSave} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-sm transition-colors">
+              <button onClick={handleSave} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-sm transition-colors">
                 <Check className="w-4 h-4" /> {editingId ? 'Обновить' : 'Опубликовать'}
               </button>
-              <button onClick={handleCancel} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-sm transition-colors">
+              <button onClick={handleCancel} className="flex items-center gap-1 px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm transition-colors">
                 <X className="w-4 h-4" /> Отмена
               </button>
             </div>
@@ -597,7 +597,7 @@ function NewsSection({ news, addNews, updateNews, deleteNews }: {
 
         <div className="space-y-3">
           {news.map(item => (
-            <div key={item.id} className="p-4 rounded-xl bg-gray-700/30 border border-gray-700/50">
+            <div key={item.id} className="p-4 rounded-xl bg-gray-800/30 border border-gray-800">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-white">{item.title}</p>
@@ -605,10 +605,10 @@ function NewsSection({ news, addNews, updateNews, deleteNews }: {
                   <p className="text-sm text-gray-300 mt-2 line-clamp-2">{item.content}</p>
                 </div>
                 <div className="flex gap-1 flex-shrink-0">
-                  <button onClick={() => handleEdit(item)} className="p-2 rounded-lg hover:bg-gray-600/50 text-gray-400 hover:text-white transition-colors">
+                  <button onClick={() => handleEdit(item)} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
                     <Edit3 className="w-4 h-4" />
                   </button>
-                  <button onClick={() => deleteNews(item.id)} className="p-2 rounded-lg hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-colors">
+                  <button onClick={() => deleteNews(item.id)} className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
