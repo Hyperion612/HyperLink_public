@@ -1,14 +1,34 @@
-import React, { useEffect, Component, ReactNode } from 'react';
+import React, { useEffect, Component, ReactNode, Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
-import LandingPage from './pages/LandingPage';
-import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import EditorPage from './pages/EditorPage';
-import PublicLinkPage from './pages/PublicLinkPage';
-import StatsPage from './pages/StatsPage';
-import SettingsPage from './pages/SettingsPage';
-import PricingPage from './pages/PricingPage';
+
+// Lazy loading для ускорения начальной загрузки
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const EditorPage = lazy(() => import('./pages/EditorPage'));
+const PublicLinkPage = lazy(() => import('./pages/PublicLinkPage'));
+const StatsPage = lazy(() => import('./pages/StatsPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const PricingPage = lazy(() => import('./pages/PricingPage'));
+
+// Компонент загрузки
+const LoadingFallback = () => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    background: '#0a0a0f',
+    color: 'white',
+    fontFamily: 'sans-serif'
+  }}>
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ fontSize: '24px', marginBottom: '10px' }}>HyperLink</div>
+      <div style={{ color: '#666', fontSize: '14px' }}>Загрузка...</div>
+    </div>
+  </div>
+);
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: Error | null }> {
   constructor(props: { children: ReactNode }) {
@@ -57,17 +77,19 @@ export default function App() {
     <ErrorBoundary>
       <AppProvider>
         <HashRouter>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/dashboard/editor/:id" element={<EditorPage />} />
-            <Route path="/dashboard/stats/:id" element={<StatsPage />} />
-            <Route path="/dashboard/settings" element={<SettingsPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/r/:slug" element={<PublicLinkPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/dashboard/editor/:id" element={<EditorPage />} />
+              <Route path="/dashboard/stats/:id" element={<StatsPage />} />
+              <Route path="/dashboard/settings" element={<SettingsPage />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/r/:slug" element={<PublicLinkPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
         </HashRouter>
       </AppProvider>
     </ErrorBoundary>

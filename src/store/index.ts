@@ -249,46 +249,46 @@ export function seedDemoData(): void {
   ];
   saveLinks(links);
 
-  // Seed clicks
+  // Seed clicks - оптимизировано для быстрой загрузки
   const clicks: Click[] = [];
-  const countries = ['RU', 'US', 'GB', 'DE', 'KZ'];
-  const devices = ['iPhone', 'Android', 'Mac', 'Windows'];
-  const services = ['Spotify', 'Apple Music', 'VK Музыка', 'Яндекс Музыка', 'YouTube Music'];
+  const countries = ['RU', 'US', 'GB'];
+  const devices = ['iPhone', 'Android', 'Mac'];
+  const services = ['Spotify', 'Apple Music', 'VK Музыка'];
 
   for (const link of links) {
-    const numClicks = link.id === 'link-1' ? 45 : link.id === 'link-2' ? 28 : 12;
+    const numClicks = link.id === 'link-1' ? 15 : link.id === 'link-2' ? 10 : 5;
     for (let i = 0; i < numClicks; i++) {
-      const daysAgo = Math.floor(Math.random() * 14);
+      const daysAgo = Math.floor(Math.random() * 7);
       const country = countries[Math.floor(Math.random() * countries.length)];
       clicks.push({
         id: generateId(),
         linkId: link.id,
         serviceName: services[Math.floor(Math.random() * services.length)],
         country,
-        city: ['Москва', 'New York', 'London', 'Berlin', 'Алматы'][Math.floor(Math.random() * 5)],
+        city: 'Москва',
         device: devices[Math.floor(Math.random() * devices.length)],
-        utmSource: ['instagram', 'telegram', 'twitter', 'tiktok', 'direct'][Math.floor(Math.random() * 5)],
-        createdAt: new Date(Date.now() - daysAgo * 86400000 - Math.random() * 86400000).toISOString(),
+        utmSource: 'direct',
+        createdAt: new Date(Date.now() - daysAgo * 86400000).toISOString(),
       });
     }
   }
   localStorage.setItem(KEYS.clicks, JSON.stringify(clicks));
 
-  // Seed views
+  // Seed views - оптимизировано для быстрой загрузки
   const views: PageView[] = [];
   for (const link of links) {
-    const numViews = link.id === 'link-1' ? 120 : link.id === 'link-2' ? 75 : 35;
+    const numViews = link.id === 'link-1' ? 25 : link.id === 'link-2' ? 15 : 8;
     for (let i = 0; i < numViews; i++) {
-      const daysAgo = Math.floor(Math.random() * 14);
+      const daysAgo = Math.floor(Math.random() * 7);
       const country = countries[Math.floor(Math.random() * countries.length)];
       views.push({
         id: generateId(),
         linkId: link.id,
         country,
-        city: ['Москва', 'New York', 'London', 'Berlin', 'Алматы'][Math.floor(Math.random() * 5)],
+        city: 'Москва',
         device: devices[Math.floor(Math.random() * devices.length)],
-        utmSource: ['instagram', 'telegram', 'twitter', 'tiktok', 'direct'][Math.floor(Math.random() * 5)],
-        createdAt: new Date(Date.now() - daysAgo * 86400000 - Math.random() * 86400000).toISOString(),
+        utmSource: 'direct',
+        createdAt: new Date(Date.now() - daysAgo * 86400000).toISOString(),
       });
     }
   }

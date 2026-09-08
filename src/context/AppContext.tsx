@@ -20,15 +20,6 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  // Инициализируем демо-данные один раз при загрузке
-  React.useMemo(() => {
-    try {
-      store.seedDemoData();
-    } catch (e) {
-      console.error('Error seeding demo data:', e);
-    }
-  }, []);
-  
   const [user, setUser] = useState<User | null>(() => {
     try {
       return store.getCurrentUser();
@@ -47,6 +38,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return [];
     }
   });
+
+  // Инициализируем демо-данные асинхронно после первого рендера
+  useEffect(() => {
+    try {
+      store.seedDemoData();
+      // Обновляем данные если это первый вход
+      const currentUser = store.getCurrentUser();
+      if (!user && currentUser) {
+        setUser(currentUser);
+        setLinks(store.getUserLinks(currentUser.id));
+      }
+    } catch (e) {
+      console.error('Error seeding demo data:', e);
+    }
+  }, []);
 
   const refreshUser = () => setUser(store.getCurrentUser());
   const refreshLinks = () => { if (user) setLinks(store.getUserLinks(user.id)); };
