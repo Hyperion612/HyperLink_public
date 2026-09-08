@@ -195,6 +195,9 @@ export function seedDemoData(): void {
   const users = [...existing, demoUser];
   saveUsers(users);
   localStorage.setItem('hl_password_demo@hyperlink.app', 'demo');
+  
+  // Автоматически устанавливаем demo-пользователя как текущего при первом запуске
+  setCurrentUser(demoUser);
 
   const links: SmartLink[] = [
     {
