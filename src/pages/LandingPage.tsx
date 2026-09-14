@@ -66,6 +66,17 @@ export default function LandingPage() {
               Смотреть демо
             </button>
           </div>
+
+          {/* Developer Button */}
+          <div className="mt-8">
+            <button 
+              onClick={() => navigate('/connect')} 
+              className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2"
+            >
+              <span className="text-blue-400">⚡</span>
+              Для разработчиков
+            </button>
+          </div>
         </div>
       </div>
 

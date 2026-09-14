@@ -11,6 +11,7 @@ const PublicLinkPage = lazy(() => import('./pages/PublicLinkPage'));
 const StatsPage = lazy(() => import('./pages/StatsPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
+const ConnectPage = lazy(() => import('./pages/ConnectPage'));
 
 // Компонент загрузки
 const LoadingFallback = () => (
@@ -81,6 +82,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/connect" element={<ConnectPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/dashboard/editor/:id" element={<EditorPage />} />
               <Route path="/dashboard/stats/:id" element={<StatsPage />} />
