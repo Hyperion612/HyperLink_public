@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { STREAMING_SERVICES } from '../types';
 import { SmartLink } from '../types';
 import Sidebar from '../components/Sidebar';
-import { Save, ArrowLeft, Eye, Timer, Video, Music2, Palette, Type, Share2, Crown } from 'lucide-react';
+import { Save, ArrowLeft, Eye, Timer, Video, Music2, Palette, Type, Share2, Crown, Upload, X, Image as ImageIcon } from 'lucide-react';
+import { handleCoverUpload, validateCoverFile } from '../lib/upload';
+import { isSupabaseConfigured } from '../lib/supabase';
 
 export default function EditorPage() {
   const { id } = useParams();
@@ -16,6 +18,7 @@ export default function EditorPage() {
   const [form, setForm] = useState<Partial<SmartLink>>({
     title: '',
     artistName: '',
+    coverUrl: '',
     backgroundUrl: '',
     buttonColor: '#3B82F6',
     textColor: '#FFFFFF',
@@ -33,7 +36,10 @@ export default function EditorPage() {
   });
 
   const [saved, setSaved] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
   const [activeTab, setActiveTab] = useState<'basic' | 'services' | 'design' | 'widgets' | 'presave' | 'pro'>('basic');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!user) {
@@ -71,6 +77,41 @@ export default function EditorPage() {
 
   const getServiceUrl = (serviceName: string) => {
     return (form.services || []).find(s => s.serviceName === serviceName)?.url || '';
+  };
+
+  const handleCoverFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadError('');
+
+    // Валидация
+    const validation = validateCoverFile(file);
+    if (!validation.valid) {
+      setUploadError(validation.error || 'Ошибка загрузки');
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      const linkId = existingLink?.id || 'temp-' + Date.now();
+      const coverUrl = await handleCoverUpload(file, user.id, linkId);
+      setForm({ ...form, coverUrl });
+    } catch (error) {
+      setUploadError('Ошибка при загрузке файла');
+      console.error(error);
+    } finally {
+      setUploading(false);
+      // Сбрасываем input, чтобы можно было загрузить тот же файл снова
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const removeCover = () => {
+    setForm({ ...form, coverUrl: '' });
   };
 
   const handleSave = () => {
@@ -161,7 +202,7 @@ export default function EditorPage() {
             <div className="flex-1">
               <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
                 {activeTab === 'basic' && (
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     <div>
                       <label className="block text-sm text-zinc-400 mb-1.5">Название</label>
                       <input
@@ -181,6 +222,67 @@ export default function EditorPage() {
                         placeholder="Ваше имя"
                         className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors"
                       />
+                    </div>
+
+                    {/* Обложка трека/альбома */}
+                    <div>
+                      <label className="block text-sm text-zinc-400 mb-1.5">
+                        Обложка трека / альбома
+                      </label>
+                      <div className="flex items-start gap-4">
+                        {/* Превью обложки */}
+                        <div className="w-32 h-32 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center overflow-hidden flex-shrink-0">
+                          {form.coverUrl ? (
+                            <img 
+                              src={form.coverUrl} 
+                              alt="Обложка" 
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <ImageIcon className="w-10 h-10 text-zinc-600" />
+                          )}
+                        </div>
+
+                        {/* Кнопки управления */}
+                        <div className="flex-1 space-y-2">
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/jpeg,image/jpg,image/png,image/webp"
+                            onChange={handleCoverFileChange}
+                            className="hidden"
+                            id="cover-upload"
+                          />
+                          <label
+                            htmlFor="cover-upload"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+                          >
+                            <Upload className="w-4 h-4" />
+                            {uploading ? 'Загрузка...' : 'Загрузить обложку'}
+                          </label>
+                          {form.coverUrl && (
+                            <button
+                              type="button"
+                              onClick={removeCover}
+                              className="inline-flex items-center gap-2 px-4 py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm font-medium transition-colors"
+                            >
+                              <X className="w-4 h-4" />
+                              Удалить обложку
+                            </button>
+                          )}
+                          <p className="text-xs text-zinc-500 mt-2">
+                            JPG, PNG или WebP. Макс. 5MB.
+                          </p>
+                          {!isSupabaseConfigured && (
+                            <p className="text-xs text-amber-500 mt-1">
+                              ⚠️ Supabase не настроен. Изображение будет сохранено в base64 (локально).
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      {uploadError && (
+                        <p className="text-sm text-red-400 mt-2">{uploadError}</p>
+                      )}
                     </div>
                   </div>
                 )}

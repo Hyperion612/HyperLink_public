@@ -20,6 +20,7 @@ export interface SmartLink {
   slug: string;
   title: string;
   artistName: string;
+  coverUrl: string;
   backgroundUrl: string;
   buttonColor: string;
   textColor: string;

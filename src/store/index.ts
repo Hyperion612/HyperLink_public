@@ -102,6 +102,7 @@ export function createLink(userId: string, partial: Partial<SmartLink>): SmartLi
     slug: generateSlug(),
     title: partial.title || 'Новая ссылка',
     artistName: partial.artistName || '',
+    coverUrl: partial.coverUrl || '',
     backgroundUrl: partial.backgroundUrl || '',
     buttonColor: partial.buttonColor || '#3B82F6',
     textColor: partial.textColor || '#FFFFFF',
@@ -203,14 +204,14 @@ export function seedDemoData(): void {
     {
       id: 'link-1', userId: 'demo-user-1', slug: 'rassvet-single',
       title: 'Рассвет', artistName: 'Demo Artist',
-      backgroundUrl: '', buttonColor: '#3B82F6', textColor: '#FFFFFF', font: 'Inter',
+      coverUrl: '', backgroundUrl: '', buttonColor: '#3B82F6', textColor: '#FFFFFF', font: 'Inter',
       customDomain: '', isActive: true, expiresAt: '', countdownDate: '2026-03-01T00:00:00',
       youtubeUrl: '', audioPreviewUrl: '',
       presaveEnabled: true, presaveSpotifyUrl: 'https://spotify.com/presave/demo', presaveAppleUrl: '',
       fbPixelId: '', vkPixelId: '',
       services: [
         { id: 's1', serviceName: 'Spotify', url: 'https://open.spotify.com/track/demo1', position: 0 },
-        { id: 's2', serviceName: 'Apple Music', url: 'https://music.apple.com/demo1', position: 1 },
+        { id: 's2', serviceName: 'Apple Music', url: 'https://music.apple.com/demo2', position: 1 },
         { id: 's3', serviceName: 'VK Музыка', url: 'https://vk.com/music/demo1', position: 2 },
         { id: 's4', serviceName: 'Яндекс Музыка', url: 'https://music.yandex.ru/demo1', position: 3 },
         { id: 's5', serviceName: 'YouTube Music', url: 'https://music.youtube.com/demo1', position: 4 },
@@ -220,7 +221,7 @@ export function seedDemoData(): void {
     {
       id: 'link-2', userId: 'demo-user-1', slug: 'midnight-album',
       title: 'Midnight EP', artistName: 'Demo Artist',
-      backgroundUrl: '', buttonColor: '#8B5CF6', textColor: '#FFFFFF', font: 'Inter',
+      coverUrl: '', backgroundUrl: '', buttonColor: '#8B5CF6', textColor: '#FFFFFF', font: 'Inter',
       customDomain: '', isActive: true, expiresAt: '', countdownDate: '',
       youtubeUrl: '', audioPreviewUrl: '',
       presaveEnabled: false, presaveSpotifyUrl: '', presaveAppleUrl: '',
@@ -237,7 +238,7 @@ export function seedDemoData(): void {
     {
       id: 'link-3', userId: 'demo-user-1', slug: 'podcast-ep12',
       title: 'Подкаст #12: Интервью', artistName: 'Demo Artist',
-      backgroundUrl: '', buttonColor: '#10B981', textColor: '#FFFFFF', font: 'Inter',
+      coverUrl: '', backgroundUrl: '', buttonColor: '#10B981', textColor: '#FFFFFF', font: 'Inter',
       customDomain: '', isActive: true, expiresAt: '', countdownDate: '',
       youtubeUrl: '', audioPreviewUrl: '',
       presaveEnabled: false, presaveSpotifyUrl: '', presaveAppleUrl: '',

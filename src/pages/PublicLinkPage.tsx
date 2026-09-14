@@ -198,12 +198,23 @@ export default function PublicLinkPage() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div 
-            className="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl font-bold mb-4"
-            style={{ background: link.buttonColor + '20' }}
-          >
-            🎵
-          </div>
+          {/* Обложка трека/альбома */}
+          {link.coverUrl ? (
+            <div className="w-40 h-40 mx-auto rounded-xl overflow-hidden mb-4 shadow-2xl">
+              <img 
+                src={link.coverUrl} 
+                alt={`${link.title} cover`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <div 
+              className="w-40 h-40 mx-auto rounded-xl flex items-center justify-center text-5xl font-bold mb-4"
+              style={{ background: link.buttonColor + '20', color: link.buttonColor }}
+            >
+              {link.artistName.charAt(0).toUpperCase()}
+            </div>
+          )}
           <h1 className="text-2xl font-bold mb-1" style={{ color: link.textColor }}>
             {link.artistName}
           </h1>
